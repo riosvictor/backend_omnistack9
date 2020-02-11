@@ -11,8 +11,7 @@ module.exports = {
     },
 
     async store(req, res){ //async = função assincrona
-        const { filename } = req.file;
-        const { company, techs, price } = req.body;
+        const { company, techs, price, thumbnail } = req.body;
         const { user_id } = req.headers;
 
         const user = await User.findById(user_id);
@@ -23,7 +22,7 @@ module.exports = {
 
         const spot = await Spot.create({
             user: user_id,
-            thumbnail : filename,
+            thumbnail,
             company,
             techs: techs.split(',').map(tech => tech.trim()),
             price
